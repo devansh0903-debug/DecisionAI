@@ -2,14 +2,10 @@ services:
   - type: web
     name: decisionai-backend
     runtime: docker
-    plan: standard
+    plan: free
     dockerfilePath: ./Dockerfile
     dockerContext: .
     startCommand: "alembic upgrade head && uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
-    disk:
-      name: decisionai-data
-      mountPath: /var/data
-      sizeGB: 10
     envVars:
       - key: APP_ENV
         value: production
@@ -19,12 +15,6 @@ services:
         value: "true"
       - key: SECRET_KEY
         generateValue: true
-      - key: DATABASE_URL
-        value: sqlite+aiosqlite:////var/data/decisionai.db
-      - key: AUDIO_STORAGE_DIR
-        value: /var/data/audio_storage
-      - key: CHROMA_PERSIST_DIR
-        value: /var/data/chroma_data
       - key: GEMINI_API_KEY
         sync: false
       - key: GEMINI_MODEL

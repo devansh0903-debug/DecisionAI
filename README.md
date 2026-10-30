@@ -403,6 +403,18 @@ DecisionAI/
 
 Follow these steps to run DecisionAI locally from scratch.
 
+### Free Render Demo Deployment
+
+The repository includes a Render Blueprint in `render.yaml`. To create a free demo:
+
+1. Push the repository to GitHub and grant Render access to it.
+2. In Render, choose **New → Blueprint**, select the repository and `main` branch, then review the Blueprint before creating services.
+3. Provide the requested `GEMINI_API_KEY`, `GOOGLE_CLIENT_ID`, and `GOOGLE_CLIENT_SECRET` values in Render. Keep secrets in Render's environment settings, not Git.
+4. After deployment, check `https://YOUR-SERVICE.onrender.com/api/health`.
+5. In the Chrome extension's **Server Settings**, use the deployed HTTPS service URL.
+
+This free configuration has no persistent disk. Its SQLite database, meeting audio, and local ChromaDB index are on ephemeral service storage and can be lost when Render restarts or redeploys the service. Free services can also sleep when idle. Use this only for a demo with disposable data; it is not suitable for storing recordings you need to keep.
+
 ### Prerequisites
 
 - Python 3.12 or later
